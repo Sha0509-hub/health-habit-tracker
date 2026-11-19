@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AuraLife — Self-Care, Fitness & Habit OS</title>
+  <meta name="description" content="A premium self-care, health metrics, soundscapes, pomodoro focus, and habit tracker app.">
+  
+  <!-- PWA Manifest & iOS Meta Tags -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#10b981">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="AuraLife">
+  <link rel="apple-touch-icon" href="icon-192.svg">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+  <!-- html2canvas for Screenshot Export -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+  <div class="app-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <div class="brand-logo">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+            <circle cx="12" cy="12" r="9"></circle>
+          </svg>
+        </div>
+        <span class="brand-name">Aura<span>Life</span></span>
+      </div>
+
+      <!-- Level & XP Widget -->
+      <a href="#levels" class="xp-level-card" data-view="levels" style="text-decoration: none;">
+        <div class="xp-level-header">
+          <span class="level-title" id="userLevelTitle">Level 3</span>
+          <span class="xp-val" id="xpProgressText">340 / 500 XP</span>
+        </div>
+        <div class="xp-bar-wrap">
+          <div class="xp-bar-fill" id="xpBarFill" style="width: 68%;"></div>
+        </div>
+        <span class="xp-sub">Click to view Level Unlocks 🏆</span>
+      </a>
+
+      <nav class="nav-menu">
+        <a href="#dashboard" class="nav-item active" data-view="dashboard">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9" rx="2"/><rect x="14" y="3" width="7" height="5" rx="2"/><rect x="14" y="12" width="7" height="9" rx="2"/><rect x="3" y="16" width="7" height="5" rx="2"/></svg>
+          <span>Dashboard</span>
+        </a>
+        <a href="#levels" class="nav-item" data-view="levels">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <span>Level Hub 🏆</span>
+        </a>
+        <a href="#habits" class="nav-item" data-view="habits">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          <span>Habit OS</span>
+        </a>
+        <a href="#focus" class="nav-item" data-view="focus">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <span>Focus & Sounds</span>
+          <span class="nav-lock-tag" id="lockTagFocus">Lvl 3</span>
+        </a>
+        <a href="#nutrition" class="nav-item" data-view="nutrition">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          <span>Nutrition Hub</span>
+          <span class="nav-lock-tag" id="lockTagNutrition">Lvl 4</span>
+        </a>
+        <a href="#mindfulness" class="nav-item" data-view="mindfulness">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+          <span>Self-Care</span>
+        </a>
+        <a href="#badges" class="nav-item" data-view="badges">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+          <span>Badges & XP</span>
+        </a>
+        <a href="#calendar" class="nav-item" data-view="calendar">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          <span>Calendar & Journal</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="streak-card">
+          <div class="streak-icon">🔥</div>
+          <div class="streak-info">
+            <span class="streak-val" id="totalStreakVal">14 Days</span>
+            <span class="streak-lbl">Active Streak</span>
+          </div>
+        </div>
+
+        <div class="backup-actions">
+          <button class="btn-backup-sm" id="exportPdfBtn">📄 Export PDF</button>
+          <button class="btn-backup-sm" id="exportScreenshotBtn">📸 Screenshot</button>
+        </div>
+
+        <div class="user-profile">
+          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80" alt="Avatar" class="avatar">
+          <div class="user-meta">
+            <span class="user-name">Alex Rivera</span>
+            <span class="user-plan">Pro Member ✨</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-wrapper">
+      <!-- Top Header Bar -->
+      <header class="top-header">
+        <div class="header-left">
+          <h1 class="greeting-title" id="greetingText">Good Morning, Alex 🌅</h1>
+          <p class="greeting-sub" id="dailyQuoteText">"Nourish your mind, body, and spirit today."</p>
+        </div>
+
+        <div class="header-actions">
+          <button class="btn btn-outline btn-sm" id="openMonthlyWrapBtn">
+            🎁 Monthly Wrap
+          </button>
+
+          <!-- SINGLE PWA INSTALL BUTTON (Top Bar Only) -->
+          <button class="btn btn-outline btn-sm" id="installPwaBtnHeader" style="display: inline-flex;">
+            📲 Install App
+          </button>
+
+          <div class="date-badge" id="currentDateBadge">Wed, Sep 23</div>
+          
+          <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle Theme">
+            <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+            <svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          </button>
+
+          <button class="btn btn-primary" id="headerQuickCheckinBtn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            <span>Quick Check-in</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- SECTION 1: OVERVIEW DASHBOARD VIEW -->
+      <section class="view-section active" id="view-dashboard">
+        
+        <!-- NEW: Aura Wellness Score Wheel Hero Card -->
+        <div class="glass-card aura-score-card">
+          <div class="aura-score-main">
+            <div class="aura-ring-wrap">
+              <svg width="120" height="120" viewBox="0 0 36 36" class="aura-score-chart">
+                <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                <path class="circle" id="auraScoreRing" stroke-dasharray="85, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+              </svg>
+              <div class="aura-ring-text">
+                <span class="aura-score-val" id="auraScoreVal">85%</span>
+                <span class="aura-score-lbl">Aura Score</span>
+              </div>
+            </div>
+
+            <div class="aura-score-meta">
+              <div class="meta-header">
+                <h2>Today's Aura Wellness Index ✨</h2>
+                <span class="status-pill-glow">Optimal Balance</span>
+              </div>
+              <p class="meta-sub">Calculated live from your daily steps, hydration, sleep, mood, and habit completions.</p>
+              
+              <div class="score-breakdown-pills">
+                <span class="s-pill">🏃 Steps: <strong id="scoreStepsPill">84%</strong></span>
+                <span class="s-pill">💧 Water: <strong id="scoreWaterPill">60%</strong></span>
+                <span class="s-pill">🌱 Habits: <strong id="scoreHabitPill">82%</strong></span>
+                <span class="s-pill">😴 Sleep: <strong>88%</strong></span>
+                <span class="s-pill">😁 Mood: <strong>Radiant</strong></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Metrics Grid -->
+        <div class="metrics-grid">
+          <!-- Step Counter Card -->
+          <div class="glass-card metric-card">
+            <div class="card-header">
+              <div class="card-icon icon-emerald">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+              </div>
+              <div class="card-actions-right">
+                <button class="btn-icon-sm edit-metric-btn" data-metric="steps" title="Edit Steps">✏️</button>
+                <button class="btn-icon-sm reset-metric-btn" data-metric="steps" title="Reset Steps">🗑️</button>
+              </div>
+            </div>
+            <div class="metric-body">
+              <div class="metric-main">
+                <span class="metric-val" id="stepsVal">8,420</span>
+                <span class="metric-unit">/ <span id="stepsGoalVal">10,000</span> steps</span>
+              </div>
+              <div class="radial-ring">
+                <svg width="58" height="58" viewBox="0 0 36 36" class="circular-chart emerald">
+                  <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                  <path class="circle" id="stepsRing" stroke-dasharray="84, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                </svg>
+                <span class="ring-text" id="stepsPercent">84%</span>
+              </div>
+            </div>
+            <div class="metric-footer">
+              <button class="quick-step-btn" id="addStepsBtn">+ 500 Steps (+20 XP)</button>
+            </div>
+          </div>
+
+          <!-- Calories Card -->
+          <div class="glass-card metric-card">
+            <div class="card-header">
+              <div class="card-icon icon-coral">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2c0 3-3 5-3 9a6 6 0 0 0 12 0c0-4-3-6-3-9z"/><path d="M12 11c-1 0-2 1-2 2a2 2 0 0 0 4 0c0-1-1-2-2-2z"/></svg>
+              </div>
+              <div class="card-actions-right">
+                <button class="btn-icon-sm edit-metric-btn" data-metric="calories" title="Edit Calories">✏️</button>
+                <button class="btn-icon-sm reset-metric-btn" data-metric="calories" title="Reset Calories">🗑️</button>
+              </div>
+            </div>
+            <div class="metric-body">
+              <div class="metric-main">
+                <span class="metric-val" id="caloriesVal">540</span>
+                <span class="metric-unit">kcal burned</span>
+              </div>
+              <div class="progress-bar-wrap">
+                <div class="progress-bar-fill fill-coral" id="caloriesProgress" style="width: 68%;"></div>
+              </div>
+            </div>
+            <div class="metric-footer">
+              <span class="sub-meta">Goal: <span id="caloriesGoalVal">800</span> kcal</span>
+            </div>
+          </div>
+
+          <!-- Sleep Score Card -->
+          <div class="glass-card metric-card">
+            <div class="card-header">
+              <div class="card-icon icon-violet">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+              </div>
+              <div class="card-actions-right">
+                <button class="btn-icon-sm edit-metric-btn" data-metric="sleep" title="Edit Sleep">✏️</button>
+                <button class="btn-icon-sm reset-metric-btn" data-metric="sleep" title="Reset Sleep">🗑️</button>
+              </div>
+            </div>
+            <div class="metric-body">
+              <div class="metric-main">
+                <span class="metric-val"><span id="sleepHoursVal">7.8</span> <small>hrs</small></span>
+                <span class="metric-unit">Sleep Score: <span id="sleepScoreVal">88</span>/100</span>
+              </div>
+              <div class="sleep-tags">
+                <span class="tag">Deep: 2h 15m</span>
+                <span class="tag">REM: 1h 45m</span>
+              </div>
+            </div>
+            <div class="metric-footer">
+              <span class="sub-meta">Bedtime: 11:15 PM</span>
+            </div>
+          </div>
+
+          <!-- Active Minutes Card -->
+          <div class="glass-card metric-card">
+            <div class="card-header">
+              <div class="card-icon icon-cyan">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
+              <div class="card-actions-right">
+                <button class="btn-icon-sm edit-metric-btn" data-metric="activeMins" title="Edit Active Mins">✏️</button>
+                <button class="btn-icon-sm reset-metric-btn" data-metric="activeMins" title="Reset Active Mins">🗑️</button>
+              </div>
+            </div>
+            <div class="metric-body">
+              <div class="metric-main">
+                <span class="metric-val" id="activeMinsVal">45</span>
+                <span class="metric-unit">/ <span id="activeMinsGoalVal">60</span> active mins</span>
+              </div>
+              <div class="workout-types">
+                <span class="workout-pill">🧘 Yoga (20m)</span>
+                <span class="workout-pill">🏃 Run (25m)</span>
+              </div>
+            </div>
+            <div class="metric-footer">
+              <button class="quick-step-btn" id="logWorkoutBtn">+ Log Activity (+30 XP)</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Weekly Activity Overview Graph (With Interactive Legends for Fitness Enthusiasts) -->
+        <div class="glass-card graph-section">
+          <div class="section-title-bar">
+            <div>
+              <h2>Weekly Activity Overview</h2>
+              <p class="section-desc">Click legends below to toggle Steps vs Calories curves.</p>
+            </div>
+            <div class="graph-legend">
+              <button class="legend-item-btn active" id="legendStepsBtn">
+                <span class="dot dot-emerald"></span> Steps
+              </button>
+              <button class="legend-item-btn active" id="legendCaloriesBtn">
+                <span class="dot dot-coral"></span> Calories
+              </button>
+            </div>
+          </div>
+
+          <div class="chart-container">
+            <canvas id="activityChart"></canvas>
+          </div>
+
+          <div class="chart-summary-row">
+            <div class="summary-box">
+              <span class="box-lbl">Weekly Total</span>
+              <span class="box-val">58,400 steps</span>
+            </div>
+            <div class="summary-box">
+              <span class="box-lbl">Daily Avg</span>
+              <span class="box-val">8,342 steps</span>
+            </div>
+            <div class="summary-box">
+              <span class="box-lbl">Best Day</span>
+              <span class="box-val">Sat (11,200)</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION: LEVEL PROGRESSION HUB VIEW -->
+      <section class="view-section" id="view-levels">
+        <div class="glass-card rank-header-card">
+          <div class="rank-info-main">
+            <div class="rank-badge-large" id="rankBadgeIcon">🏆</div>
+            <div class="rank-text-wrap" style="flex:1;">
+              <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+                <h2 id="hubRankTitle">Level 3 — Mindful Focus Master</h2>
+                <div class="level-nav-btns" style="display:flex; gap:8px;">
+                  <button class="btn btn-outline btn-sm" id="prevLevelBtn">‹ Prev Level</button>
+                  <button class="btn btn-outline btn-sm" id="nextLevelBtn">Next Level ›</button>
+                </div>
+              </div>
+              <p class="section-desc" id="hubRankSubtitle">Earn XP by completing habits, hydration, and focus sessions to unlock upcoming perks.</p>
+              <div class="rank-xp-meta">
+                <span id="hubXpCount">1,340 Total XP Earned</span>
+                <span class="xp-pill-badge" id="hubNextLevelInfo">160 XP to Level 4</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass-card level-roadmap-card">
+          <div class="section-title-bar">
+            <div>
+              <h2>🗺️ Level Unlock Roadmap</h2>
+              <p class="section-desc">Track feature unlocks across your progression journey.</p>
+            </div>
+          </div>
+
+          <div class="level-roadmap-grid" id="levelRoadmapGrid">
+            <!-- Dynamically Rendered -->
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 2: HABIT OS & CONSISTENCY HEATMAP VIEW -->
+      <section class="view-section" id="view-habits">
+        <div class="glass-card habit-section">
+          <div class="section-title-bar">
+            <div>
+              <h2>Habit OS — Weekly Matrix</h2>
+              <p class="section-desc">Track your daily consistency & maintain active streaks.</p>
+            </div>
+            <div style="display:flex; align-items:center; gap:12px;">
+              <button class="btn btn-primary btn-sm" id="openAddHabitBtn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                <span>New Habit</span>
+              </button>
+              <div class="habit-stats-pill">
+                <span>Weekly Completion: </span>
+                <strong id="weeklyHabitScore">82%</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="filter-tabs" id="habitCategoryTabs">
+            <button class="tab-btn active" data-cat="all">All Habits</button>
+            <button class="tab-btn" data-cat="Health">🌱 Health</button>
+            <button class="tab-btn" data-cat="Mind">🧠 Mind</button>
+            <button class="tab-btn" data-cat="Fitness">💪 Fitness</button>
+            <button class="tab-btn" data-cat="Nutrition">🍎 Nutrition</button>
+          </div>
+
+          <div class="table-responsive">
+            <table class="habit-table">
+              <thead>
+                <tr>
+                  <th style="width: 32%;">Habit</th>
+                  <th>Category</th>
+                  <th class="day-col">M</th>
+                  <th class="day-col">T</th>
+                  <th class="day-col">W</th>
+                  <th class="day-col">T</th>
+                  <th class="day-col">F</th>
+                  <th class="day-col">S</th>
+                  <th class="day-col">S</th>
+                  <th class="text-right">Streak</th>
+                </tr>
+              </thead>
+              <tbody id="habitTableBody">
+                <!-- Dynamically Rendered -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Monthly Consistency Heatmap (With Day & Month Labels) -->
+        <div class="glass-card heatmap-section" id="heatmapSectionCard">
+          <div class="section-title-bar">
+            <div>
+              <h2>📅 Monthly Habit Consistency Heatmap</h2>
+              <p class="section-desc">30-day activity intensity overview (GitHub style with day/week labels).</p>
+            </div>
+            <div class="heatmap-legend">
+              <span>Less</span>
+              <span class="hm-cell lvl-0"></span>
+              <span class="hm-cell lvl-1"></span>
+              <span class="hm-cell lvl-2"></span>
+              <span class="hm-cell lvl-3"></span>
+              <span class="hm-cell lvl-4"></span>
+              <span>More</span>
+            </div>
+          </div>
+
+          <div class="heatmap-wrapper">
+            <div class="hm-day-labels">
+              <span>Mon</span>
+              <span>Wed</span>
+              <span>Fri</span>
+            </div>
+            <div class="heatmap-grid" id="heatmapGrid">
+              <!-- Dynamically Rendered -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 3: FOCUS & SOUNDSCAPES VIEW (Level 3 Feature) -->
+      <section class="view-section" id="view-focus">
+        <div class="feature-locked-banner" id="focusLockedBanner" style="display: none;">
+          <span class="lock-icon">🔒</span>
+          <div>
+            <h3>Focus Hub is Locked (Requires Level 3)</h3>
+            <p>Earn XP by logging steps, hydration, and daily habits to unlock the Pomodoro Timer & Soundscapes!</p>
+          </div>
+          <a href="#levels" class="btn btn-emerald btn-sm" data-view="levels">View Level Roadmap</a>
+        </div>
+
+        <div class="two-col-layout" id="focusContentWrap">
+          <div class="glass-card pomodoro-card">
+            <div class="section-title-bar">
+              <div>
+                <h2>⏱️ Focus Pomodoro Timer</h2>
+                <p class="section-desc">Boost productivity with 25-minute deep focus intervals.</p>
+              </div>
+              <span class="pomo-session-pill" id="pomoSessionCount">Session: #2 Completed</span>
+            </div>
+
+            <div class="pomo-mode-tabs">
+              <button class="pomo-tab active" data-time="1500" data-mode="Focus">Deep Focus (25m)</button>
+              <button class="pomo-tab" data-time="300" data-mode="Short Break">Short Break (5m)</button>
+              <button class="pomo-tab" data-time="900" data-mode="Long Break">Long Break (15m)</button>
+            </div>
+
+            <div class="pomo-timer-display">
+              <div class="pomo-ring-wrap">
+                <svg width="180" height="180" viewBox="0 0 36 36" class="pomo-chart">
+                  <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                  <path class="circle" id="pomoProgressRing" stroke-dasharray="100, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                </svg>
+                <div class="pomo-text-content">
+                  <span class="pomo-timer-val" id="pomoTimeDisplay">25:00</span>
+                  <span class="pomo-mode-lbl" id="pomoModeDisplay">Deep Focus</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Auto-Play Soundscape Toggle -->
+            <div class="toggle-switch-wrap">
+              <label class="switch-lbl">
+                <input type="checkbox" id="autoPlaySoundToggle" checked>
+                <span class="switch-slider"></span>
+                <span class="lbl-text">Auto-play Ambient Sound on Timer Start 🎵</span>
+              </label>
+            </div>
+
+            <div class="pomo-actions">
+              <button class="btn btn-primary" id="startPomoBtn">Start Focus ▶</button>
+              <button class="btn btn-outline" id="resetPomoBtn">Reset</button>
+            </div>
+          </div>
+
+          <!-- Soundscape Synthesizer (With Lo-Fi Beats & White Noise for Students) -->
+          <div class="glass-card soundscape-card">
+            <div class="section-title-bar">
+              <div>
+                <h2>🎵 Ambient Relaxation Soundscapes</h2>
+                <p class="section-desc">Real-time Web Audio synthesizer for focus, study & calm.</p>
+              </div>
+              <div class="equalizer-bars" id="eqVisualizer">
+                <span></span><span></span><span></span><span></span>
+              </div>
+            </div>
+
+            <div class="soundscape-presets">
+              <button class="sound-preset-btn active" data-sound="rain">
+                <span class="sound-icon">🌧️</span>
+                <span class="sound-name">Gentle Rain</span>
+              </button>
+              <button class="sound-preset-btn" data-sound="lofi">
+                <span class="sound-icon">🎧</span>
+                <span class="sound-name">Lo-Fi Chill Beats</span>
+              </button>
+              <button class="sound-preset-btn" data-sound="ocean">
+                <span class="sound-icon">🌊</span>
+                <span class="sound-name">Ocean Waves</span>
+              </button>
+              <button class="sound-preset-btn" data-sound="whitenoise">
+                <span class="sound-icon">📻</span>
+                <span class="sound-name">White Noise</span>
+              </button>
+              <button class="sound-preset-btn" data-sound="forest">
+                <span class="sound-icon">🌲</span>
+                <span class="sound-name">Forest Wind</span>
+              </button>
+              <button class="sound-preset-btn" data-sound="binaural">
+                <span class="sound-icon">🧠</span>
+                <span class="sound-name">432Hz Binaural</span>
+              </button>
+            </div>
+
+            <div class="sound-controls">
+              <button class="btn-play-sound" id="toggleSoundBtn">Play Soundscape 🔊</button>
+              <div class="volume-slider-wrap">
+                <span>🔈</span>
+                <input type="range" id="soundVolumeSlider" min="0" max="1" step="0.05" value="0.5">
+                <span>🔊</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- NEW: Custom Ambient Sound Multi-Track Mixer -->
+          <div class="glass-card sound-mixer-card" style="margin-top: 20px;">
+            <div class="section-title-bar">
+              <div>
+                <h2>🎛️ Custom Multi-Track Sound Mixer</h2>
+                <p class="section-desc">Mix multiple ambient tracks (Rain, Lo-Fi, Fireplace) with custom volume levels!</p>
+              </div>
+              <button class="btn btn-emerald btn-sm" id="toggleMixerPlayBtn">Play Custom Mix 🎚️</button>
+            </div>
+
+            <div class="mixer-sliders-grid">
+              <div class="mixer-track">
+                <div class="track-info">
+                  <span>🌧️ Rain Sound</span>
+                  <span class="track-vol-val" id="volRainVal">50%</span>
+                </div>
+                <input type="range" id="volRainSlider" class="mixer-range" min="0" max="1" step="0.05" value="0.5">
+              </div>
+
+              <div class="mixer-track">
+                <div class="track-info">
+                  <span>🎧 Lo-Fi Chill Beats</span>
+                  <span class="track-vol-val" id="volLofiVal">30%</span>
+                </div>
+                <input type="range" id="volLofiSlider" class="mixer-range" min="0" max="1" step="0.05" value="0.3">
+              </div>
+
+              <div class="mixer-track">
+                <div class="track-info">
+                  <span>🪵 Fireplace Crackle</span>
+                  <span class="track-vol-val" id="volFireVal">20%</span>
+                </div>
+                <input type="range" id="volFireSlider" class="mixer-range" min="0" max="1" step="0.05" value="0.2">
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 4: NUTRITION HUB VIEW (Level 4 Feature) -->
+      <section class="view-section" id="view-nutrition">
+        <div class="feature-locked-banner" id="nutritionLockedBanner" style="display: none;">
+          <span class="lock-icon">🔒</span>
+          <div>
+            <h3>Nutrition Hub is Locked (Requires Level 4)</h3>
+            <p>Reach Level 4 by continuing your wellness journey to unlock Macronutrient & Meal Logging!</p>
+          </div>
+          <a href="#levels" class="btn btn-emerald btn-sm" data-view="levels">View Level Roadmap</a>
+        </div>
+
+        <div class="glass-card nutrition-section" id="nutritionContentWrap">
+          <div class="section-title-bar">
+            <div>
+              <h2>🥗 Nutrition & Daily Macro Tracker</h2>
+              <p class="section-desc">Track macronutrient distribution and daily meal consumption.</p>
+            </div>
+            <button class="btn btn-emerald btn-sm" id="openAddMealBtn">+ Log Meal</button>
+          </div>
+
+          <div class="nutrition-grid">
+            <div class="macro-cards-row">
+              <div class="macro-box">
+                <span class="macro-title">Calories Intaken</span>
+                <span class="macro-val" id="macroCalVal">1,680 / 2,200 kcal</span>
+                <div class="macro-bar"><div class="macro-fill fill-amber" id="macroCalFill" style="width: 76%;"></div></div>
+              </div>
+              <div class="macro-box">
+                <span class="macro-title">Protein</span>
+                <span class="macro-val" id="macroProteinVal">115g / 140g</span>
+                <div class="macro-bar"><div class="macro-fill fill-cyan" id="macroProteinFill" style="width: 82%;"></div></div>
+              </div>
+              <div class="macro-box">
+                <span class="macro-title">Carbohydrates</span>
+                <span class="macro-val" id="macroCarbsVal">180g / 240g</span>
+                <div class="macro-bar"><div class="macro-fill fill-violet" id="macroCarbsFill" style="width: 75%;"></div></div>
+              </div>
+              <div class="macro-box">
+                <span class="macro-title">Healthy Fats</span>
+                <span class="macro-val" id="macroFatsVal">52g / 65g</span>
+                <div class="macro-bar"><div class="macro-fill fill-coral" id="macroFatsFill" style="width: 80%;"></div></div>
+              </div>
+            </div>
+
+            <div class="meals-list-wrap">
+              <h4>Today's Logged Meals</h4>
+              <div class="meals-table-responsive">
+                <table class="meals-table">
+                  <thead>
+                    <tr>
+                      <th>Meal</th>
+                      <th>Category</th>
+                      <th>Calories</th>
+                      <th>Protein</th>
+                      <th>Carbs</th>
+                      <th>Fats</th>
+                      <th class="text-right">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="mealsTableBody">
+                    <!-- Dynamically Rendered -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 5: SELF-CARE SANCTUARY VIEW -->
+      <section class="view-section" id="view-mindfulness">
+        <div class="three-col-layout">
+          <!-- Guided Breathing Tool (With Audio Chimes & Pulsing Glow for Remote Workers) -->
+          <div class="glass-card widget-card breathing-widget">
+            <div class="widget-header">
+              <h3>🧘 Mindful Breathing</h3>
+              <span class="widget-tag">4-7-8 • 🔔 Audio Chimes</span>
+            </div>
+            <div class="breathing-content">
+              <div class="breathing-circle-outer">
+                <div class="breathing-circle-inner" id="breathingCircle">
+                  <span class="breathing-state" id="breathingStateText">Inhale</span>
+                  <span class="breathing-timer" id="breathingTimerText">4s</span>
+                </div>
+              </div>
+              <p class="breathing-subtext" id="breathingSubtext">Press Start for a 2-minute relaxation break (+40 XP).</p>
+              <div class="breathing-actions">
+                <button class="btn btn-emerald btn-sm" id="startBreathingBtn">Start Session</button>
+                <button class="btn btn-outline btn-sm" id="resetBreathingBtn">Reset</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Hydration Tracker Widget -->
+          <div class="glass-card widget-card hydration-widget">
+            <div class="widget-header">
+              <h3>💧 Hydration Tracker</h3>
+              <span class="widget-tag" id="waterGoalTag">Goal: 2,500 ml</span>
+            </div>
+            <div class="hydration-body">
+              <div class="water-glass-container">
+                <div class="water-wave" id="waterWave" style="height: 60%;"></div>
+                <div class="water-text">
+                  <span class="water-amount" id="waterAmountText">1,500</span>
+                  <span class="water-unit">ml / 2,500 ml</span>
+                </div>
+              </div>
+              <div class="water-controls">
+                <button class="btn-water-add" id="addWater250">+250ml 🥛 (+20 XP)</button>
+                <button class="btn-water-add" id="addWater500">+500ml 🍾 (+40 XP)</button>
+                <button class="btn-water-reset" id="resetWaterBtn">Reset</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Mood Check-in Widget -->
+          <div class="glass-card widget-card mood-widget">
+            <div class="widget-header">
+              <h3>✨ Mood Check-in</h3>
+              <span class="widget-tag" id="currentMoodTag">Mood: Radiant</span>
+            </div>
+            <div class="mood-body">
+              <div class="mood-options">
+                <button class="mood-btn active" data-mood="Radiant" data-emoji="😁">
+                  <span class="mood-emoji">😁</span>
+                  <span class="mood-lbl">Radiant</span>
+                </button>
+                <button class="mood-btn" data-mood="Calm" data-emoji="🙂">
+                  <span class="mood-emoji">🙂</span>
+                  <span class="mood-lbl">Calm</span>
+                </button>
+                <button class="mood-btn" data-mood="Neutral" data-emoji="😐">
+                  <span class="mood-emoji">😐</span>
+                  <span class="mood-lbl">Neutral</span>
+                </button>
+                <button class="mood-btn" data-mood="Anxious" data-emoji="😟">
+                  <span class="mood-emoji">😟</span>
+                  <span class="mood-lbl">Anxious</span>
+                </button>
+                <button class="mood-btn" data-mood="Tired" data-emoji="😴">
+                  <span class="mood-emoji">😴</span>
+                  <span class="mood-lbl">Tired</span>
+                </button>
+              </div>
+
+              <div class="mood-history-wrap">
+                <span class="history-title">Recent Mood Log</span>
+                <div class="mood-history-pills" id="moodHistoryPills">
+                  <!-- Dynamically Rendered -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- NEW: 7-Day Mood History Trend Canvas Chart -->
+        <div class="glass-card mood-trend-card" style="margin-top: 24px;">
+          <div class="section-title-bar">
+            <div>
+              <h2>📈 7-Day Mood Trend History</h2>
+              <p class="section-desc">Track fluctuations in your emotional well-being over the past week.</p>
+            </div>
+          </div>
+          <div class="chart-container" style="height: 180px;">
+            <canvas id="moodTrendChart"></canvas>
+          </div>
+        </div>
+
+        <div class="two-col-layout" style="margin-top: 24px;">
+          <div class="glass-card gratitude-card">
+            <div class="section-title-bar">
+              <div>
+                <h2>📖 Daily Gratitude & Reflections</h2>
+                <p class="section-desc">Write down 3 things that brought you joy today (+30 XP).</p>
+              </div>
+              <span class="save-status-indicator" id="journalSaveStatus">Saved</span>
+            </div>
+
+            <div class="gratitude-inputs">
+              <div class="gratitude-field">
+                <span class="num-badge">1</span>
+                <input type="text" id="gratitude1" class="gratitude-input" placeholder="e.g., Morning sunlight during walk...">
+              </div>
+              <div class="gratitude-field">
+                <span class="num-badge">2</span>
+                <input type="text" id="gratitude2" class="gratitude-input" placeholder="e.g., Completed a tough workout...">
+              </div>
+              <div class="gratitude-field">
+                <span class="num-badge">3</span>
+                <input type="text" id="gratitude3" class="gratitude-input" placeholder="e.g., Shared a smile with a friend...">
+              </div>
+            </div>
+            
+            <div class="journal-footer">
+              <button class="btn btn-primary btn-sm" id="saveGratitudeBtn">Save Entry ✨</button>
+            </div>
+          </div>
+
+          <div class="glass-card night-routine-card">
+            <div class="section-title-bar">
+              <div>
+                <h2>🌙 Evening Self-Care Routine</h2>
+                <p class="section-desc">Prepare your mind and body for restorative sleep.</p>
+              </div>
+              <div class="routine-progress" id="routineProgressText">3 / 4 Done</div>
+            </div>
+
+            <div class="routine-checklist" id="routineChecklist">
+              <label class="routine-item">
+                <input type="checkbox" class="routine-checkbox" data-id="r1" checked>
+                <span class="custom-chk"></span>
+                <span class="item-text">Hydrate & take evening magnesium</span>
+              </label>
+              <label class="routine-item">
+                <input type="checkbox" class="routine-checkbox" data-id="r2" checked>
+                <span class="custom-chk"></span>
+                <span class="item-text">Digital detox (Screens off by 10:00 PM)</span>
+              </label>
+              <label class="routine-item">
+                <input type="checkbox" class="routine-checkbox" data-id="r3" checked>
+                <span class="custom-chk"></span>
+                <span class="item-text">Nighttime skincare & stretching</span>
+              </label>
+              <label class="routine-item">
+                <input type="checkbox" class="routine-checkbox" data-id="r4">
+                <span class="custom-chk"></span>
+                <span class="item-text">Read 15 pages of a calming book</span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 6: BADGES & XP ACHIEVEMENTS VIEW -->
+      <section class="view-section" id="view-badges">
+        <div class="glass-card badges-section">
+          <div class="section-title-bar">
+            <div>
+              <h2>🏆 Badges & Unlockable Achievements</h2>
+              <p class="section-desc">Earn badges by hitting streak milestones and wellness targets.</p>
+            </div>
+            <span class="badge-count-pill" id="unlockedBadgesCount">3 / 6 Unlocked</span>
+          </div>
+
+          <div class="badges-grid" id="badgesGrid">
+            <!-- Dynamically Rendered -->
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 8: INTERACTIVE CALENDAR & EMOTION JOURNAL VIEW -->
+      <section class="view-section" id="view-calendar">
+        <div class="section-title-bar">
+          <div>
+            <h2>🗓️ Calendar & Emotion Journal</h2>
+            <p class="section-desc">Track your daily habits, emotional states, and journal entries over time.</p>
+          </div>
+          <div class="calendar-nav-controls">
+            <button class="btn btn-outline btn-sm" id="calPrevMonthBtn">‹ Prev Month</button>
+            <span class="calendar-month-title" id="calMonthYearTitle">September 2026</span>
+            <button class="btn btn-outline btn-sm" id="calNextMonthBtn">Next Month ›</button>
+            <button class="btn btn-primary btn-sm" id="calTodayBtn">Today</button>
+          </div>
+        </div>
+
+        <div class="two-col-layout calendar-layout">
+          <!-- Main Calendar Grid Card -->
+          <div class="glass-card calendar-main-card">
+            <div class="calendar-weekdays-header">
+              <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+            </div>
+            <div class="calendar-days-grid" id="calendarDaysGrid">
+              <!-- Dynamically populated day cells -->
+            </div>
+            <div class="calendar-legend">
+              <span class="legend-item"><span class="legend-dot dot-habit"></span> Habits Done</span>
+              <span class="legend-item"><span class="legend-dot dot-journal"></span> Journal Entry</span>
+              <span class="legend-item"><span class="legend-dot dot-mood"></span> Emotion Logged</span>
+            </div>
+          </div>
+
+          <!-- Side Panel: Emotion & Journal Log -->
+          <div class="calendar-side-panel">
+            <!-- New Journal Entry Card -->
+            <div class="glass-card new-journal-card">
+              <h3>✍️ Write Journal Entry (+30 XP)</h3>
+              <div class="form-group" style="margin-top: 12px;">
+                <input type="text" id="journalTitleInput" class="gratitude-input" placeholder="Entry Title (e.g. Peaceful Evening)">
+              </div>
+              <div class="form-group" style="margin-top: 8px;">
+                <textarea id="journalBodyInput" class="gratitude-input" rows="4" placeholder="Write your thoughts, reflections, or gratitude for today..."></textarea>
+              </div>
+              <div class="emotion-tag-picker" style="margin-top: 10px;">
+                <span class="picker-lbl">Emotion Tag:</span>
+                <div class="emotion-chips-wrap" id="journalEmotionChips">
+                  <button type="button" class="emotion-chip active" data-emotion="🌟 Joyful" data-emoji="🌟">🌟 Joyful</button>
+                  <button type="button" class="emotion-chip" data-emotion="🧘 Calm" data-emoji="🧘">🧘 Calm</button>
+                  <button type="button" class="emotion-chip" data-emotion="⚡ Energized" data-emoji="⚡">⚡ Energized</button>
+                  <button type="button" class="emotion-chip" data-emotion="🌊 Peaceful" data-emoji="🌊">🌊 Peaceful</button>
+                  <button type="button" class="emotion-chip" data-emotion="🔥 Motivated" data-emoji="🔥">🔥 Motivated</button>
+                  <button type="button" class="emotion-chip" data-emotion="🌧️ Melancholy" data-emoji="🌧️">🌧️ Melancholy</button>
+                </div>
+              </div>
+              <button class="btn btn-primary btn-sm" id="saveJournalEntryBtn" style="margin-top: 14px; width: 100%;">Save Journal Entry ✨</button>
+            </div>
+
+            <!-- Recent Journal List -->
+            <div class="glass-card journal-history-card" style="margin-top: 18px;">
+              <h3>📖 Saved Journal Entries</h3>
+              <div class="journal-list" id="journalHistoryList">
+                <!-- Dynamically populated -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- NEW: FLOATING "+ QUICK ADD" ACTION MENU -->
+  <div class="floating-fab-wrap">
+    <div class="fab-popup-menu" id="fabMenu">
+      <button class="fab-action-item" id="fabAddWater">+250ml Water 🥛</button>
+      <button class="fab-action-item" id="fabAddSteps">+500 Steps 👟</button>
+      <button class="fab-action-item" id="fabLogMood">Log Mood 😁</button>
+      <button class="fab-action-item" id="fabLogMeal">+ Log Meal 🥗</button>
+    </div>
+    <button class="fab-btn" id="floatingQuickAddBtn" title="Quick Actions">
+      <span>+</span>
+    </button>
+  </div>
+
+  <!-- Modal Dialog: Add New Habit -->
+  <div class="modal-overlay" id="addHabitModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>🌱 Create New Habit</h3>
+        <button class="modal-close-btn" id="closeHabitModal">&times;</button>
+      </div>
+      <form id="addHabitForm" class="modal-body">
+        <div class="form-group">
+          <label for="habitTitleInput">Habit Title</label>
+          <input type="text" id="habitTitleInput" required placeholder="e.g. 15 Mins Meditation">
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="habitCategorySelect">Category</label>
+            <select id="habitCategorySelect" required>
+              <option value="Health">🌱 Health</option>
+              <option value="Mind">🧠 Mind</option>
+              <option value="Fitness">💪 Fitness</option>
+              <option value="Nutrition">🍎 Nutrition</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="habitFrequencySelect">Target Frequency</label>
+            <select id="habitFrequencySelect">
+              <option value="7">7 days / week</option>
+              <option value="5">5 days / week</option>
+              <option value="3">3 days / week</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" id="cancelHabitModal">Cancel</button>
+          <button type="submit" class="btn btn-primary">Add Habit ✨</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal Dialog: Edit Existing Habit -->
+  <div class="modal-overlay" id="editHabitModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>✏️ Edit Habit Details</h3>
+        <button class="modal-close-btn" id="closeEditHabitModal">&times;</button>
+      </div>
+      <form id="editHabitForm" class="modal-body">
+        <input type="hidden" id="editHabitId">
+        <div class="form-group">
+          <label for="editHabitTitleInput">Habit Title</label>
+          <input type="text" id="editHabitTitleInput" required placeholder="e.g. 15 Mins Meditation">
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="editHabitCategorySelect">Category</label>
+            <select id="editHabitCategorySelect" required>
+              <option value="Health">🌱 Health</option>
+              <option value="Mind">🧠 Mind</option>
+              <option value="Fitness">💪 Fitness</option>
+              <option value="Nutrition">🍎 Nutrition</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" id="cancelEditHabitModal">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Changes ✨</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal Dialog: Add Meal -->
+  <div class="modal-overlay" id="addMealModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>🥗 Log Meal & Nutrition</h3>
+        <button class="modal-close-btn" id="closeMealModal">&times;</button>
+      </div>
+      <form id="addMealForm" class="modal-body">
+        <div class="form-group">
+          <label for="mealNameInput">Meal Name</label>
+          <input type="text" id="mealNameInput" required placeholder="e.g. Grilled Chicken & Quinoa Salad">
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="mealCategorySelect">Category</label>
+            <select id="mealCategorySelect" required>
+              <option value="Breakfast">🍳 Breakfast</option>
+              <option value="Lunch">🥗 Lunch</option>
+              <option value="Dinner">🍲 Dinner</option>
+              <option value="Snack">🍏 Snack</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="mealCaloriesInput">Calories (kcal)</label>
+            <input type="number" id="mealCaloriesInput" required placeholder="450">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="mealProteinInput">Protein (g)</label>
+            <input type="number" id="mealProteinInput" required placeholder="35">
+          </div>
+          <div class="form-group">
+            <label for="mealCarbsInput">Carbs (g)</label>
+            <input type="number" id="mealCarbsInput" required placeholder="40">
+          </div>
+          <div class="form-group">
+            <label for="mealFatsInput">Fats (g)</label>
+            <input type="number" id="mealFatsInput" required placeholder="12">
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" id="cancelMealModal">Cancel</button>
+          <button type="submit" class="btn btn-primary">Log Meal ✨</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal Dialog: Level Up Celebration -->
+  <div class="modal-overlay" id="levelUpModal">
+    <div class="modal-card level-up-modal-card">
+      <div class="level-up-icon" id="lvlUpIcon">👑</div>
+      <h2 class="level-up-title" id="lvlUpTitle">LEVEL UP!</h2>
+      <p class="level-up-subtitle" id="lvlUpSubtitle">You reached Level 4 — Nutrition Architect! ✨</p>
+      <p class="level-up-perks" id="lvlUpPerks">Unlocked: Macronutrient Tracker & Daily Meal Logger</p>
+      <button class="btn btn-emerald" id="closeLvlUpModalBtn">Awesome! Let's Go 🚀</button>
+    </div>
+  </div>
+
+  <canvas id="confettiCanvas" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 99999;"></canvas>
+
+  <!-- SMART AI WELLNESS ASSISTANT ("AURA BOT") -->
+  <div class="aura-bot-container">
+    <div class="aura-bot-window" id="auraBotWindow">
+      <div class="aura-bot-header">
+        <div class="bot-info">
+          <span class="bot-avatar">🤖</span>
+          <div>
+            <h4>Aura Bot AI Assistant</h4>
+            <span class="bot-status">Online • Live Wellness Coach</span>
+          </div>
+        </div>
+        <button class="bot-close-btn" id="closeAuraBotBtn">&times;</button>
+      </div>
+
+      <div class="aura-bot-messages" id="auraBotMessages">
+        <div class="bot-msg msg-ai">
+          <span>👋 Hi Alex! I am your Aura Wellness AI. Type how you're feeling (e.g., "ගොඩක් මහන්සියි" / "I'm stressed") or ask for wellness advice!</span>
+        </div>
+      </div>
+
+      <div class="aura-bot-chips">
+        <button class="chip-btn" data-query="ගොඩක් මහන්සියි / Stressed">🧘 I feel stressed</button>
+        <button class="chip-btn" data-query="Water status">💧 Water Status</button>
+        <button class="chip-btn" data-query="Focus help">⏱️ Focus Recommendation</button>
+      </div>
+
+      <div class="aura-bot-input-bar">
+        <input type="text" id="auraBotInput" placeholder="Ask Aura Bot anything...">
+        <button id="sendAuraBotBtn">Send 🚀</button>
+      </div>
+    </div>
+
+    <button class="aura-bot-fab" id="toggleAuraBotBtn" title="Talk to Aura Bot AI">
+      <span>🤖</span>
+      <span class="bot-notification-badge" id="botBadge" style="display:none;">1</span>
+    </button>
+  </div>
+
+  <!-- MODAL DIALOG: MONTHLY AURA WRAP (INSTA-STORY CAROUSEL) -->
+  <div class="modal-overlay" id="monthlyWrapModal">
+    <div class="story-modal-card">
+      <div class="story-progress-bar">
+        <div class="story-step-bar active" id="storyStep0"></div>
+        <div class="story-step-bar" id="storyStep1"></div>
+        <div class="story-step-bar" id="storyStep2"></div>
+        <div class="story-step-bar" id="storyStep3"></div>
+      </div>
+
+      <button class="modal-close-btn story-close" id="closeMonthlyWrapBtn">&times;</button>
+
+      <div class="story-slides-container" id="storySlidesContainer">
+        <!-- Slide 0: Intro -->
+        <div class="story-slide active" data-slide="0">
+          <span class="story-tag">MONTHLY REVIEW 🎁</span>
+          <h2 class="story-title">Your Monthly Aura Wrap</h2>
+          <div class="story-graphic">✨👑</div>
+          <p class="story-desc">Let's look back at your incredible mind & body wellness journey over the past 30 days!</p>
+        </div>
+
+        <!-- Slide 1: Steps & Fitness -->
+        <div class="story-slide" data-slide="1">
+          <span class="story-tag">MOVEMENT 🏃</span>
+          <h2 class="story-title">152,400 Total Steps</h2>
+          <div class="story-stat-hero">👟</div>
+          <p class="story-desc">You walked over 115 kilometers this month! Peak activity reached on Saturdays.</p>
+          <span class="story-badge-highlight">🔥 Top 10% Active Explorer</span>
+        </div>
+
+        <!-- Slide 2: Hydration & Focus -->
+        <div class="story-slide" data-slide="2">
+          <span class="story-tag">FOCUS & HYDRATION 💧</span>
+          <h2 class="story-title">42 Hours Focused</h2>
+          <div class="story-stat-hero">⏱️</div>
+          <p class="story-desc">Completed 38 Pomodoro sessions and hit 82% of your 2.5L daily hydration goals!</p>
+        </div>
+
+        <!-- Slide 3: Level & Rank -->
+        <div class="story-slide" data-slide="3">
+          <span class="story-tag">LEVEL RANK 👑</span>
+          <h2 class="story-title">Level 4 Architect</h2>
+          <div class="story-stat-hero">🥗</div>
+          <p class="story-desc">Earned 1,840 Total XP this month! Unlocked Nutrition Hub & Soundscapes.</p>
+          <button class="btn btn-emerald" id="shareWrapBtn" style="margin-top:14px;">Share My Wrap 🚀</button>
+        </div>
+      </div>
+
+      <div class="story-nav-actions">
+        <button class="btn-story-nav" id="prevStoryBtn">‹ Prev</button>
+        <button class="btn-story-nav" id="nextStoryBtn">Next ›</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Dialog: Calendar Day Inspector -->
+  <div class="modal-overlay" id="dayInspectorModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="dayInspectorTitle">📅 Day Inspector</h3>
+        <button class="modal-close-btn" id="closeDayInspectorModal">&times;</button>
+      </div>
+      <div class="modal-body" id="dayInspectorBody">
+        <!-- Dynamically rendered day logs -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Dialog: Edit & Add Health Metrics -->
+  <div class="modal-overlay" id="editMetricModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="editMetricModalTitle">✏️ Edit Health Metric</h3>
+        <button class="modal-close-btn" id="closeEditMetricModal">&times;</button>
+      </div>
+      <form id="editMetricForm" class="modal-body">
+        <input type="hidden" id="editMetricType">
+        <div class="form-group">
+          <label id="editMetricValLabel" for="editMetricValInput">Metric Value</label>
+          <input type="number" id="editMetricValInput" required min="0" step="any">
+        </div>
+        <div class="form-group" id="editMetricGoalGroup">
+          <label id="editMetricGoalLabel" for="editMetricGoalInput">Metric Goal</label>
+          <input type="number" id="editMetricGoalInput" min="1" step="any">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" id="cancelEditMetricModal">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Changes ✨</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- App Script -->
+  <script src="app.js"></script>
+</body>
+</html>
